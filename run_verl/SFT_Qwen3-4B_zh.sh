@@ -8,11 +8,11 @@ if [ "$#" -lt 1 ]; then
     exit 1
 fi
 
-# 单卡默认 1 个进程（可用 NPROC_PER_NODE 覆盖）
+# 单卡默认 1 个进程
 nproc_per_node=${NPROC_PER_NODE:-1}
 
 save_path=$1
-shift 1  # 透传剩余 hydra overrides
+shift 1
 
 torchrun --standalone --nnodes=1 --nproc_per_node=$nproc_per_node \
   -m verl.trainer.fsdp_sft_trainer \
